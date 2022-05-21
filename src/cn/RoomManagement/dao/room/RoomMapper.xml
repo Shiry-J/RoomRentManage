@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 命名空间 ：填写 对应此xml'文件的接口名-->
+<mapper namespace="cn.RoomManagement.dao.room.RoomMapper">
+
+    <select id="getroomList" resultType="Room">
+        select * from room where ison=1
+    </select>
+
+    <select id="getRoomByRoomName" resultType="Room" parameterType="Integer">
+        select * from room where id=#{id} and ison=1
+    </select>
+
+    <select id="getRoomList_on" resultType="Room" parameterType="String">
+        select * from room where roommaster=#{roommaster} and ison=1
+    </select>
+
+    <select id="getRoomList_off" resultType="Room" parameterType="String">
+        select * from room where roommaster=#{roommaster} and ison=0
+    </select>
+
+    <insert id="AddRoom" parameterType="Room">
+        insert into room(roomname,roomprice,roomimage,roomdate,roomdescription,roommaster,roomaddress,ison)
+        values(#{roomname},#{roomprice},#{roomimage},#{roomdate},#{roomdescription},#{roommaster},#{roomaddress},1)
+    </insert>
+
+    <delete id="do_deleteRoomByid" parameterType="Integer">
+        delete from room where id=#{id}
+    </delete>
+
+    <update id="do_offRoomByid" parameterType="Integer">
+        update room set ison = 0 where id=#{id}
+    </update>
+
+    <update id="do_onRoomByid" parameterType="Integer">
+        update room set ison = 1 where id=#{id}
+    </update>
+
+    <update id="ModifyRoom" parameterType="Room">
+        update room set roomname=#{roomname},roomprice=#{roomprice},roomimage=#{roomimage},
+        roomdescription=#{roomdescription},roomaddress=#{roomaddress} where id=#{id}
+    </update>
+
+    <insert id="do_addcart" parameterType="Cart">
+        insert into cart(userid,roomid,isend,price,roommaster)
+        values(#{userid},#{roomid},1,#{price},#{roommaster})
+    </insert>
+
+    <select id="do_getCartList_on" parameterType="Integer" resultType="Cart">
+        select * from cart where userid=#{userid} and isend=1
+    </select>
+
+    <select id="do_getCartList_off" parameterType="Integer" resultType="Cart">
+        select * from cart where userid=#{userid} and isend=0
+    </select>
+
+    <delete id="do_deleteCartById" parameterType="Integer">
+        delete from cart where id=#{id} and isend=0
+    </delete>
+
+    <update id="do_finishCartById" parameterType="Integer">
+        update cart set isend = 0 where id=#{id}
+    </update>
+
+    <select id="do_getCartList_onByRoommaster" parameterType="String" resultType="Cart">
+        select * from cart where roommaster=#{roommaster} and isend=1
+    </select>
+
+    <select id="do_getCartList_offByRoommaster" parameterType="String" resultType="Cart">
+        select * from cart where roommaster=#{roommaster} and isend=0
+    </select>
+
+    <select id="do_getCartById" parameterType="Integer" resultType="Cart">
+        select * from cart where id=#{id} and isend=0
+    </select>
+
+    <select id="do_getRoomById" parameterType="Integer" resultType="Room">
+        select * from room where id=#{id}
+    </select>
+
+    <insert id="do_AddEvaluteRoom" parameterType="Evalute">
+        insert into evalute(cartid,userid,roomid,roommaster,message)
+        values(#{cartid},#{userid},#{roomid},#{roommaster},#{message})
+    </insert>
+
+    <select id="do_getEvaluteByCartid" parameterType="Integer" resultType="Evalute">
+        select * from evalute where cartid=#{cartid}
+    </select>
+
+    <select id="do_getEvaluteByRoomid" parameterType="Integer" resultType="Evalute">
+        select * from evalute where roomid=#{roomid}
+    </select>
+
+    <select id="do_getNoneCleanerCartByUserid" parameterType="Integer" resultType="CleanerCart">
+        select * from cleanercart where userid=#{userid} and status=2
+    </select>
+
+    <select id="do_getIngCleanerCartByUserid" parameterType="Integer" resultType="CleanerCart">
+        select * from cleanercart where userid=#{userid} and status=1
+    </select>
+
+    <select id="do_getEndCleanerCartByUserid" parameterType="Integer" resultType="CleanerCart">
+        select * from cleanercart where userid=#{userid} and status=0
+    </select>
+
+    <insert id="do_addCleanerCart" parameterType="CleanerCart">
+        insert into cleanercart(userid,roomid,roomaddress,cleaner,price,status)
+        values(#{userid},#{roomid},#{roomaddress},#{cleaner},#{price},#{status})
+    </insert>
+
+    <select id="do_checkCleanerCart" parameterType="Integer" resultType="CleanerCart">
+        select * from cleanercart where userid=#{userid} and roomid=#{roomid}
+    </select>
+
+    <delete id="do_DeleteCleancartById" parameterType="Integer">
+        delete from cleanercart where id=#{id} and status=0
+    </delete>
+
+    <select id="do_getNoneCleanerCart" parameterType="Integer" resultType="CleanerCart">
+        select * from cleanercart where status=2
+    </select>
+
+    <select id="do_getIngCleanerCart" parameterType="Integer" resultType="CleanerCart">
+        select * from cleanercart where cleaner=#{cleaner} and status=1
+    </select>
+
+    <select id="do_getEndCleanerCart" parameterType="Integer" resultType="CleanerCart">
+        select * from cleanercart where cleaner=#{cleaner} and status=0
+    </select>
+
+    <update id="do_ModifyCleanerCart">
+        update cleanercart set status = 1,cleaner=#{cleaner} where id=#{id} and status=2
+    </update>
+
+    <update id="do_EndCleanerCart">
+        update cleanercart set status = 0 where id=#{id} and status=1
+    </update>
+
+    <select id="do_getRoomListByLike" parameterType="String" resultType="Room">
+        select * from room where roomname like CONCAT('%',#{search},'%')
+    </select>
+
+</mapper>

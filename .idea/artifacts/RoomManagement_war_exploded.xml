@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="RoomManagement:war exploded">
+    <output-path>$PROJECT_DIR$/../../Ideal/apache-tomcat-9.0.7/out/artifacts/RoomManagement_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="RoomManagement" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="junit-4.10" />
+          <element id="library" level="project" name="log4j-1.2.17" />
+          <element id="library" level="project" name="mybatis-3.2.2" />
+          <element id="library" level="project" name="spring-context-4.3.6.RELEASE" />
+          <element id="library" level="project" name="mysql-connector-java-8.0.20" />
+        </element>
+      </element>
+      <element id="library" level="project" name="mysql-connector-java-5.1.0-bin" />
+      <element id="javaee-facet-resources" facet="RoomManagement/web/Web" />
+    </root>
+  </artifact>
+</component>

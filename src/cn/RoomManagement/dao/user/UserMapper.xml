@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 命名空间 ：填写 对应此xml'文件的接口名-->
+<mapper namespace="cn.RoomManagement.dao.user.UserMapper">
+
+    <!--根据用户名获得用户-->
+    <select id="getUserByUserName" resultType="User" parameterType="String">
+        select * from user where username=#{username}
+    </select>
+
+    <select id="getRoomMasterByUserName" resultType="RoomMaster" parameterType="String">
+        select * from roommaster where username=#{username}
+    </select>
+
+    <select id="getCleannerByUserName" resultType="Cleanner" parameterType="String">
+        select * from cleanner where username=#{username}
+    </select>
+
+    <!--添加用户-->
+    <insert id="addUser" parameterType="User">
+        insert into user(username,password,phone,email)
+        values(#{username},#{password},#{phone},#{email})
+    </insert>
+
+    <insert id="addRoomMaster" parameterType="RoomMaster">
+        insert into roommaster(username,phone,email,idcard,address)
+        values(#{username},#{phone},#{email},#{idcard},#{address})
+    </insert>
+
+    <insert id="addCleanner" parameterType="Cleanner">
+        insert into cleanner(username,phone,email,idcard,address)
+        values(#{username},#{phone},#{email},#{idcard},#{address})
+    </insert>
+
+    <update id="modifypassword" parameterType="String">
+        update user set password = #{password} where username=#{username}
+    </update>
+
+</mapper>

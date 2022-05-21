@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--通过mybatis配置文件实现与数据库的连接-->
+<configuration>
+
+    <settings>
+        <setting name="lazyLoadingEnabled" value="false"/>
+    </settings>
+
+    <typeAliases>
+        <package name="cn.RoomManagement.pojo"/>
+    </typeAliases>
+
+    <!--将mapper文件加入到配置文件中，后续补充-->
+    <mappers>
+        <mapper resource="cn/RoomManagement/dao/user/UserMapper.xml"/>
+        <mapper resource="cn/RoomManagement/dao/room/RoomMapper.xml"/>
+    </mappers>
+
+</configuration>
